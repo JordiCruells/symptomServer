@@ -1,8 +1,8 @@
-package org.magnum.mobilecloud.video.repository;
+package org.jcruells.sm.server.repository;
 
 import java.util.Collection;
 
-import org.magnum.mobilecloud.video.client.VideoSvcApi;
+import org.jcruells.sm.server.client.VideoSvcApi;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;

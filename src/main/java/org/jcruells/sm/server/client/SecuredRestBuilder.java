@@ -4,7 +4,7 @@
  **
  ** 
  */
-package org.magnum.mobilecloud.video.client;
+package org.jcruells.sm.server.client;
 
 import java.util.ArrayList;
 import java.util.List;

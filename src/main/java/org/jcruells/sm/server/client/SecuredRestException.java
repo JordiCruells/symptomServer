@@ -4,7 +4,7 @@
  **
  ** 
  */
-package org.magnum.mobilecloud.video.client;
+package org.jcruells.sm.server.client;
 
 /**
  * A special class made to specify exceptions that are thrown by our

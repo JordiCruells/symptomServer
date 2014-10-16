@@ -1,8 +1,8 @@
-package org.magnum.mobilecloud.video.client;
+package org.jcruells.sm.server.client;
 
 import java.util.Collection;
 
-import org.magnum.mobilecloud.video.repository.Video;
+import org.jcruells.sm.server.repository.Video;
 
 import retrofit.http.Body;
 import retrofit.http.GET;

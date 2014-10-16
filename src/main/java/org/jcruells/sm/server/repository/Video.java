@@ -1,4 +1,4 @@
-package org.magnum.mobilecloud.video.repository;
+package org.jcruells.sm.server.repository;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

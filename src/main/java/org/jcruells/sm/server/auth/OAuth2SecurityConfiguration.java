@@ -1,4 +1,4 @@
-package org.magnum.mobilecloud.video.auth;
+package org.jcruells.sm.server.auth;
 
 import java.io.File;
 import java.util.Arrays;

@@ -1,7 +1,7 @@
-package org.magnum.mobilecloud.video;
+package org.jcruells.sm.server;
 
-import org.magnum.mobilecloud.video.auth.OAuth2SecurityConfiguration;
-import org.magnum.mobilecloud.video.json.ResourcesMapper;
+import org.jcruells.sm.server.auth.OAuth2SecurityConfiguration;
+import org.jcruells.sm.server.json.ResourcesMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
