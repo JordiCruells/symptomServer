@@ -152,26 +152,22 @@ public class OAuth2SecurityConfiguration {
 					// Create a client that has "read" and "write" access to the
 			        // video service
 					.withClient("mobile").authorizedGrantTypes("password")
-					.authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
-					.scopes("read","write").resourceIds("video")
-					.and()
-					// Create a second client that only has "read" access to the
-					// video service
-					.withClient("mobileReader").authorizedGrantTypes("password")
-					.authorities("ROLE_CLIENT")
-					.scopes("read").resourceIds("video")
-					.accessTokenValiditySeconds(3600).and().build();
-
+					.authorities("ROLE_CLIENT", "ROLE_DOCTOR")
+					.scopes("read","write").resourceIds("video").and().build();
+			
 			// Create a series of hard-coded users. 
 			UserDetailsService svc = new InMemoryUserDetailsManager(
 					Arrays.asList(
-							User.create("admin", "pass", "ADMIN", "USER"),
-							User.create("user0", "pass", "USER"),
-							User.create("user1", "pass", "USER"),
-							User.create("user2", "pass", "USER"),
-							User.create("user3", "pass", "USER"),
-							User.create("user4", "pass", "USER"),
-							User.create("user5", "pass", "USER")));
+							User.create("doctor1", "pwd_d1", "ROLE_DOCTOR"),
+							User.create("doctor2", "pwd_d2", "ROLE_DOCTOR"),
+							User.create("patient1", "pwd_p1", "ROLE_PATIENT"),
+							User.create("patient2", "pwd_p2", "ROLE_PATIENT"),
+							User.create("patient3", "pwd_p3", "ROLE_PATIENT"),
+							User.create("patient4", "pwd_p4", "ROLE_PATIENT"),
+							User.create("patient5", "pwd_p5", "ROLE_PATIENT"),
+							User.create("patient6", "pwd_p6", "ROLE_PATIENT"),
+							User.create("patient7", "pwd_p7", "ROLE_PATIENT"),
+							User.create("patient8", "pwd_p8", "ROLE_PATIENT")));
 
 			// Since clients have to use BASIC authentication with the client's id/secret,
 			// when sending a request for a password grant, we make each client a user
