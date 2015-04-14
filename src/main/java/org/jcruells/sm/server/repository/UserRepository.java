@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * An interface for a repository that can store Usero
+ * An interface for a repository that can store Users
  * objects and allow them to be searched
  * 
- * NO need to use a RepositoryRestResource annotation cause
- * I will use my own controller to access this repository
+ * There's no need to use a RepositoryRestResource annotation because
+ * we will use a controller to access this repository
  * 
  * @author jordi
  *

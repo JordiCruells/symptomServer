@@ -53,16 +53,14 @@ public class UserController implements UserSvcApi {
 	    
 	    User user = users.findByUsername(username);
 	    
+	    System.out.println("FOUND USER, ID IS " + user.getId());
+	    
 	    if (user == null) System.out.println("user " + username + " not found !!!");
 	    else System.out.println("user " + username + " is found !!!");
 	    
 		if (user == null) throw new UserNotFoundException(username);
 		
-		//For security reasons we will be not sending the passwords in the data
-		user.setPassword("");
-		
-		
-		System.out.println("Name is:" + user.getName());
+		//System.out.println("Name is:" + user.getName());
 		
 		return user;
 	}

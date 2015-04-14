@@ -1,6 +1,8 @@
 package org.jcruells.sm.server.client;
 
 import org.jcruells.sm.server.repository.User;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import retrofit.http.GET;
 
 /**
@@ -17,10 +19,6 @@ public interface UserSvcApi {
 
 	
 	@GET(USER_SVC_PATH)
-	public User getUserData();
-	
-	
-	/*@GET(USER_SVC_PATH + "/{userId}")
-	public User getUserByUserId(@Path("userId") long userId);*/
-	
+	public @ResponseBody User getUserData();
+
 }

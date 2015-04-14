@@ -2,14 +2,25 @@ package org.jcruells.sm.server.json;
 
 import java.io.IOException;
 
+import javax.persistence.Column;
+import javax.persistence.Transient;
+
+import org.jcruells.sm.server.repository.CheckIn;
+import org.jcruells.sm.server.repository.Patient;
+import org.jcruells.sm.server.repository.PatientMedication;
 import org.springframework.hateoas.Resources;
 
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.node.IntNode;
 
 /**
  * Begin long explanation of why this class was created...
@@ -103,11 +114,95 @@ public class ResourcesMapper extends ObjectMapper {
 		}
 	};
 	
+	
+	
+	@SuppressWarnings("rawtypes")
+	private class CheckInDeserializer extends JsonDeserializer<CheckIn> {
+		 
+	    @Override
+	    public CheckIn deserialize(JsonParser jp, DeserializationContext ctxt)
+	      throws IOException, JsonProcessingException {
+	        JsonNode node = jp.getCodec().readTree(jp);
+	        return new CheckIn(
+	        		(Integer) ((IntNode) node.get("id")).numberValue(),	        		
+	        		(Integer) ((IntNode) node.get("patientRecordId")).numberValue(),					
+	        		node.get("checkinDatetime").asText(),
+	        		(Integer) ((IntNode) node.get("painLevel")).numberValue(),
+	        		(Integer) ((IntNode) node.get("medicationTaken")).numberValue(),
+	        		node.get("medicationDatetime").asText(),
+	        		node.get("medicationAnswers").asText(),
+	        		(Integer) ((IntNode) node.get("stoppedEatingLevel")).numberValue(),	        		
+	        		//node.get("serverTimestamp").asText(),
+	        		"",
+	        		(Integer) ((IntNode) node.get("syncAction")).numberValue(),	        		
+	        		(Integer) ((IntNode) node.get("synced")).numberValue()
+					);
+	    }
+	
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private class PatientMedicationDeserializer extends JsonDeserializer<PatientMedication> {
+		 
+	    @Override
+	    public PatientMedication deserialize(JsonParser jp, DeserializationContext ctxt)
+	      throws IOException, JsonProcessingException {
+	        JsonNode node = jp.getCodec().readTree(jp);
+	        return new PatientMedication(
+	        		(Integer) ((IntNode) node.get("id")).numberValue(),	   
+	        		(Integer) ((IntNode) node.get("patientRecordId")).numberValue(),		
+	        		(Integer) ((IntNode) node.get("patientMedicationId")).numberValue(),
+	        		node.get("patientMedicationFrom").asText(),
+	        		node.get("patientMedicationTo").asText(),
+	        		//node.get("serverTimestamp").asText(),
+	        		"",
+	        		(Integer) ((IntNode) node.get("syncAction")).numberValue(),	        		
+	        		(Integer) ((IntNode) node.get("synced")).numberValue()
+					);
+	    }
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	private class PatientDeserializer extends JsonDeserializer<Patient> {
+		 
+	    @Override
+	    public Patient deserialize(JsonParser jp, DeserializationContext ctxt)
+	      throws IOException, JsonProcessingException {
+	        JsonNode node = jp.getCodec().readTree(jp);
+	        return new Patient(
+	        		(Integer) ((IntNode) node.get("id")).numberValue(),	   
+	        		(Integer) ((IntNode) node.get("recordId")).numberValue(),
+	        		(Integer) ((IntNode) node.get("doctorId")).numberValue(),
+	        		node.get("patientName").asText(),
+	        		node.get("patientLastName").asText(),
+	        		node.get("patientBirthday").asText(),
+	        		(Integer) ((IntNode) node.get("severePainMinutes")).numberValue(),	     
+	        		(Integer) ((IntNode) node.get("moderateToSeverePainMinutes")).numberValue(),
+	        		(Integer) ((IntNode) node.get("noEatMinutes")).numberValue(),
+	        		(Integer) ((IntNode) node.get("painLevel")).numberValue(),
+	        		(Integer) ((IntNode) node.get("stoppedEatingLevel")).numberValue(),
+	        		node.get("lastCheckinDatetime").asText(),
+	        		node.get("clientLastSyncTimestamp").asText(),
+	        		//node.get("serverTimestamp").asText(),
+	        		"",
+	        		(Integer) ((IntNode) node.get("syncAction")).numberValue(),	        		
+	        		(Integer) ((IntNode) node.get("synced")).numberValue()
+					);
+	    }
+	}
+	
+	
+	
+	
 	// Create an ObjectMapper and tell it to use our customer serializer
 	// to convert Resources objects into JSON
 	public ResourcesMapper() {
 		SimpleModule module = new SimpleModule();
 		module.addSerializer(serializer);
+		module.addDeserializer(CheckIn.class, new CheckInDeserializer());
+		module.addDeserializer(PatientMedication.class, new PatientMedicationDeserializer());
+		module.addDeserializer(Patient.class, new PatientDeserializer());
 		registerModule(module);
 	}
 
